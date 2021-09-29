@@ -16,6 +16,9 @@ class User {
     @Column()
     admin: boolean;
 
+    @Column()
+    password: string;
+
     @CreateDateColumn()
     created_at: Date;
 
@@ -23,7 +26,7 @@ class User {
     updated_at: Date;
 
     constructor() {
-        if(!this.id) {
+        if (!this.id) {
             this.id = uuid();
         }
     }
