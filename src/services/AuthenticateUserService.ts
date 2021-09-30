@@ -11,9 +11,7 @@ interface IAuthenticateRequest {
 class AuthenticateUserService {
 
     async execute({ email, password }: IAuthenticateRequest) {
-
         const usersRepositories = getCustomRepository(UsersRepositories);
-
         const user = await usersRepositories.findOne({
             email
         });
@@ -23,7 +21,6 @@ class AuthenticateUserService {
         }
 
         const passwordMatch = await compare(password, user.password);
-
         if (!passwordMatch) {
             throw new Error("Email/Password incorrect");
         }
@@ -37,7 +34,6 @@ class AuthenticateUserService {
 
         return token;
     }
-
 }
 
 export { AuthenticateUserService }

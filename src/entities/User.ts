@@ -3,7 +3,6 @@ import { v4 as uuid } from "uuid";
 
 @Entity("users")
 class User {
-
     @PrimaryColumn()
     readonly id: string;
 
@@ -30,7 +29,6 @@ class User {
             this.id = uuid();
         }
     }
-
 }
 
 export { User };
