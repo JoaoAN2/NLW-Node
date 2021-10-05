@@ -15,19 +15,20 @@ class AuthenticateUserService {
         const user = await usersRepositories.findOne({
             email
         });
-
+        
         if (!user) {
             throw new Error("Email/Password incorrect");
         }
-
+        
         const passwordMatch = await compare(password, user.password);
         if (!passwordMatch) {
             throw new Error("Email/Password incorrect");
         }
-
+        
+        const key = "477bf88e019e0742b0f696e3bca1b12c";
         const token = sign({
             email: user.email
-        }, "477bf88e019e0742b0f696e3bca1b12c", {
+        }, key, {
             subject: user.id,
             expiresIn: "1d"
         });
