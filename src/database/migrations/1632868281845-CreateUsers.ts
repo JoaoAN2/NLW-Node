@@ -36,7 +36,7 @@ export class CreateUsers1632868281845 implements MigrationInterface {
                         default: "now()"
                     }
                 ]
-            }) // CREATE TABLE IF NOT EXISTS users(id INT, name VARCHAR(50));
+            }) 
         );
     }
 
