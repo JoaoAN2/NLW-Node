@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +7,41 @@
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     
-    <title>Hello NLW</title>
+    <title>Teste save BD Mysql</title>
 </head>
 <body>
-    <h1 class="text-primary">Front End do Jão refresh</h1>
+    
+    <section>
+        <div class="container ">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <h1>Login</h1>
+                    <form method="POST" action="/login" class="mb-5">
+                        <input type="email" class="form-control mb-3" placeholder="email" name="email">
+                        <input type="password" class="form-control mb-3" placeholder="*********" name="password">
 
+                        <button class="btn btn-secondary" type="submit">Login</button>
+                    </form>
+
+                    <h1>Cadastrar</h1>
+                    <form method="POST" action="/users">
+                        <input type="text" class="form-control mb-3" placeholder="Nome" name="name" id="name" required>
+                        <input type="email" class="form-control mb-3" placeholder="Email" name="email" id="email" required>
+                        <input type="password" class="form-control mb-3" placeholder="*********" name="password" id="password" required>
+                        <input type="radio" class="mb-3" name="numberAdmin" value="0" id="admin-false" checked>
+                        <label for="admin-false">Não</label>
+                        <input type="radio" class="mb-3" name="numberAdmin" value="1" id="admin-true">
+                        <label for="admin-true">Sim</label>
+                        
+                        <button class="btn btn-primary" type="submit">Cadastrar</button>
+                    </form>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+    </section>
+        
     <script src="jquery/dist/jquery.min.js"></script>
     <script src="@popperjs/core/dist/cjs/popper.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
