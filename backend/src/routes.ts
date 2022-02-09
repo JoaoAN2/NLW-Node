@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import { CreateUserController } from "./controllers/CreateUserController";
 import { CreateTagController } from "./controllers/CreateTagController";
 import { ensureAdmin } from "./middlewares/ensureAdmin";
@@ -11,10 +11,6 @@ import { ListTagsController } from "./controllers/ListTagsController";
 import { ListUsersController } from "./controllers/ListUsersController";
 
 const router = Router();
-
-const index = (request: Request, response: Response) => {
-    return response.render("index");
-}
 
 const createUserController = new CreateUserController();
 const createTagController = new CreateTagController();
@@ -33,6 +29,5 @@ router.get("/users/compliments/send", ensureAuthenticated, listUserSendComplimen
 router.get("/users/compliments/receive", ensureAuthenticated, listUserReceiveComplimentsController.handle);
 router.get("/tags", ensureAuthenticated, listTagsController.handle);
 router.get("/users", listUsers.handle);
-router.get("/", index);
 
 export { router };

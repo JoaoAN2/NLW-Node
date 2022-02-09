@@ -2,8 +2,6 @@ import "reflect-metadata";
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import { router } from "./routes";
-import ejs from "ejs";
-import path from "path";
 import cors from "cors";
 
 import "./database";
@@ -27,10 +25,5 @@ app
         message: "Internal Server Error"
     });
 })
-.use(express.static("node_modules"))
-.use(express.static("public"))
-.engine('html', ejs.renderFile)
-.set("views",path.join(__dirname,"views"))
-.set('view engine', 'html');
 
 app.listen(3000, () => console.log("Server is running!!"));
