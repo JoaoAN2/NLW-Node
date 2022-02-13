@@ -26,4 +26,4 @@ app
     });
 })
 
-app.listen(3000, () => console.log("Server is running!!"));
+app.listen(3100, () => console.log("Servidor no ar na porta 3100 🚀"));
