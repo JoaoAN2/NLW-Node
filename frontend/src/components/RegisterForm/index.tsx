@@ -7,12 +7,12 @@ export function RegisterForm() {
     const [ name, setName ] = useState("");
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
-    const [ admin, setAdmin ] = useState("");
+    const [ admin, setAdmin ] = useState(false);
 
     async function handleRegisterUser (event: FormEvent) {
+        alert(`Nome: ${name}; \nEmail: ${email}; \nSenha: ${password}; \nAdmin: ${admin ? "É admin": "Não é Admin"}`);
+
         await api.post("/users", { name, email, password, admin });
-        
-        return alert(`Nome: ${name}; \nEmail: ${email}; \nSenha: ${password}; \nAdmin: ${admin == "1" ? "É admin": "Não é Admin"}`);
     }
 
     return (
@@ -28,10 +28,10 @@ export function RegisterForm() {
                     <h3>É admin?</h3>
                     
                     <label htmlFor="adminFalse">Falso</label>
-                    <input type="radio" id="adminFalse" name="admin" onChange={event => setAdmin(event.target.value)} value="0" checked/>
+                    <input type="radio" id="adminFalse" name="admin" onChange={event => setAdmin(false)} value="0"/>
 
                     <label htmlFor="adminTrue">Verdadeiro</label>
-                    <input type="radio" id="adminTrue" name="admin" onChange={event => setAdmin(event.target.value)} value="1"/>
+                    <input type="radio" id="adminTrue" name="admin" onChange={event => setAdmin(true)} value="1"/>
                 </div>
 
                 <div className={styles.submitButton}>
