@@ -1,6 +1,8 @@
 import { FormEvent, useState } from "react";
 import { api } from "../../services/api";
+import { Button, Form, FormCheck, FormControl } from "react-bootstrap";
 import styles from "./styles.module.scss";
+import FormCheckLabel from "react-bootstrap/esm/FormCheckLabel";
 
 export function RegisterForm() {
 
@@ -10,34 +12,39 @@ export function RegisterForm() {
     const [ admin, setAdmin ] = useState(false);
 
     async function handleRegisterUser (event: FormEvent) {
-        alert(`Nome: ${name}; \nEmail: ${email}; \nSenha: ${password}; \nAdmin: ${admin ? "É admin": "Não é Admin"}`);
-
-        await api.post("/users", { name, email, password, admin });
+        event.preventDefault();
+        
+        await api
+        .post("/users", { name, email, password, admin })
+        .then(response => alert(`Usuário cadastrado com sucesso!!\nNome: ${response.data.name}; \nEmail: ${response.data.email}; \nSenha: ${response.data.password}; \nAdmin: ${response.data.admin ? "É admin": "Não é Admin"}`))
+        .catch(error => alert(error.response.data.error));
+        
     }
 
     return (
         <div className={styles.form}>
 
-            <form onSubmit={handleRegisterUser}>
+            <Form onSubmit={handleRegisterUser}>
                 <h1>Formulário de registro</h1>
-                <input required type="text" id="name" name="name" onChange={event => setName(event.target.value)} placeholder="Nome Completo"/>
-                <input required type="email" id="email" name="email" onChange={event => setEmail(event.target.value)} placeholder="Seu melhor email"/>
-                <input required type="password" id="password" name="password" onChange={event => setPassword(event.target.value)} placeholder="*********"/>
+                <FormControl required type="text" id="name" name="name" onChange={event => setName(event.target.value)} placeholder="Nome Completo"/>
+                <FormControl required type="email" id="email" name="email" onChange={event => setEmail(event.target.value)} placeholder="Seu melhor email"/>
+                <FormControl required type="password" id="password" name="password" onChange={event => setPassword(event.target.value)} placeholder="*********"/>
 
                 <div>
                     <h3>É admin?</h3>
                     
-                    <label htmlFor="adminFalse">Falso</label>
-                    <input type="radio" id="adminFalse" name="admin" onChange={event => setAdmin(false)} value="0"/>
+                    <FormCheckLabel htmlFor="adminFalse">Falso</FormCheckLabel>
+                    <FormCheck inline className="mx-2" type="radio" id="adminFalse" name="admin" onChange={() => setAdmin(false)} value="0"/>
 
-                    <label htmlFor="adminTrue">Verdadeiro</label>
-                    <input type="radio" id="adminTrue" name="admin" onChange={event => setAdmin(true)} value="1"/>
+                    <FormCheckLabel htmlFor="adminTrue">Verdadeiro</FormCheckLabel>
+                    <FormCheck inline className="mx-2" type="radio" id="adminTrue" name="admin" onChange={() => setAdmin(true)} value="1"/>
                 </div>
 
                 <div className={styles.submitButton}>
-                    <button type="submit">Enviar</button>
+                    <Button type="submit" variant="primary" className="mt-4">Enviar</Button>
                 </div>
-            </form>
+
+            </Form>
         </div>
 
     )

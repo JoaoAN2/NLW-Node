@@ -15,7 +15,7 @@ class CreateUserService {
         const usersRepository = getCustomRepository(UsersRepositories);
         
         if (!email) {
-            throw new Error("Incorrect Email");
+            throw new Error("Email incorreto");
         }
 
         const userAlreadyExists = await usersRepository.findOne({
@@ -23,7 +23,7 @@ class CreateUserService {
         });
         
         if (userAlreadyExists) {
-            throw new Error("User already exists.");
+            throw new Error("Email já utilizado!");
         }
 
         const passwordHash = await hash(password, 8);
@@ -32,8 +32,9 @@ class CreateUserService {
             email,
             admin,
             password: passwordHash
-        })
+        });
         await usersRepository.save(user);
+
         return user;
     }
 }
