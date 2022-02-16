@@ -2,6 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../services/api";
 
 const TOKEN_STORAGE = "@jao:token";
+const USER_STORAGE = "@jao:user";
 
 type User = {
     id: string,
@@ -14,7 +15,6 @@ type User = {
 
 type AuthContextData = {
     user: User | null,
-    signInUrl: string,
     signOut(): () => void
 }
 
@@ -30,5 +30,12 @@ type AuthProvider = {
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider(props: AuthProvider) {
+    
+    async function signIn(email: string, password: string) {
+        const response = await api.post<AuthResponse>('login', {
+            email,
+            password
+        });
+    }
 
 }
