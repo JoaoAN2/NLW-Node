@@ -1,0 +1,15 @@
+.login {
+    margin-top: 15rem;
+    display: flex;
+    justify-content: center;
+
+    form {
+        padding: 2rem;
+        border: 1px #000 solid;
+        margin-bottom: 2rem;
+    }
+
+    input {
+        margin-bottom: 1rem;
+    }
+}
