@@ -1,9 +1,10 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { api } from "../../services/api";
 import { Button, Form, FormCheck, FormControl } from "react-bootstrap";
 import styles from "./styles.module.scss";
 import FormCheckLabel from "react-bootstrap/esm/FormCheckLabel";
 import { ReactNotifications, Store } from "react-notifications-component";
+import { AuthContext } from "../../contexts/auth";
 
 export function RegisterForm() {
 
@@ -11,7 +12,7 @@ export function RegisterForm() {
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ admin, setAdmin ] = useState(false);
-    const [ registerStatus, setRegisterStatus ] = useState(false);
+    const { setRegisterStatus } = useContext(AuthContext);
 
     async function handleRegisterUser (event: FormEvent) {
         event.preventDefault();
@@ -47,7 +48,10 @@ export function RegisterForm() {
               onScreen: true
             }
         }));
-        
+    }
+
+    function handleRegisterStatus() {
+        setRegisterStatus(false);
     }
 
     return (
@@ -70,8 +74,10 @@ export function RegisterForm() {
                     </div>
 
                     <div className={styles.submitButton}>
-                        <Button type="submit" variant="primary" className="mt-4">Enviar</Button>
+                        <Button type="submit" variant="primary" className="my-4">Enviar</Button>
                     </div>
+
+                    <span>Já possui uma conta? <a href="#" onClick={handleRegisterStatus}>Faça login</a></span>
 
                     <ReactNotifications/>
                 </Form>

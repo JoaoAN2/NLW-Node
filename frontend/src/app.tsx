@@ -1,10 +1,19 @@
-import { ReactNotifications } from "react-notifications-component";
+import { useContext } from "react";
 import { LoginForm } from "./components/LoginForm";
+import { Profile } from "./components/Profile";
 import { RegisterForm } from "./components/RegisterForm";
+import { AuthContext } from "./contexts/auth";
 export function App() {
 
+    const { user, registerStatus } = useContext(AuthContext);
+    
     return (
-        // <LoginForm />
-        <RegisterForm />
+        
+        <main>
+            { !user ? (registerStatus ?  <RegisterForm /> : <LoginForm />)  : <Profile />}
+        </main>
+
+
+        // <RegisterForm />
     );
 }

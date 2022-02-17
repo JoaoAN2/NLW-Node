@@ -1,8 +1,7 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, FormEventHandler, ReactNode, useEffect, useState } from "react";
 import { api } from "../services/api";
 
 const TOKEN_STORAGE = "@jao:token";
-const USER_STORAGE = "@jao:user";
 
 type User = {
     id: string,
@@ -15,13 +14,13 @@ type User = {
 
 type AuthContextData = {
     user: User | null,
-    signOut(): () => void
+    signIn: (email: string, password: string) => void,
+    signOut: () => void,
+    registerStatus: boolean,
+    setRegisterStatus: (registerStatus: boolean) => void;
 }
 
-type AuthResponse = {
-    token: string,
-    user: User
-}
+type AuthResponse = string;
 
 type AuthProvider = {
     children: ReactNode
@@ -30,12 +29,48 @@ type AuthProvider = {
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider(props: AuthProvider) {
+    const [user, setUser] = useState<User | null>(null);
+    const [registerStatus, setRegisterStatus] = useState<boolean>(false);
     
     async function signIn(email: string, password: string) {
-        const response = await api.post<AuthResponse>('login', {
+
+        await api.post<AuthResponse>('login', {
             email,
             password
-        });
+        })
+        .then(async response => {
+            const token = response.data;
+            localStorage.setItem(TOKEN_STORAGE, token);
+            api.defaults.headers.common.authorization = `Bearer ${token}`
+            if (token) {
+                await api
+                .get<User>('/profile')
+                .then(response => setUser(response.data));
+            }
+        })
+        .catch(error => console.log(error.response.data.error));
+
     }
+
+    function signOut() {
+        setUser(null);
+        localStorage.removeItem("@jao:token");
+    }
+
+    useEffect(() => {
+        const token = localStorage.getItem("@jao:token");
+        if (token) {
+            api.defaults.headers.common.authorization = `Bearer ${token}`;
+            api.get<User>('/profile')
+            .then(response => setUser(response.data))
+            .catch(error => console.log(error.response.data.error));
+        }
+    }, []);
+
+    return (
+        <AuthContext.Provider value={{ signIn, user, signOut, registerStatus, setRegisterStatus }}>
+            {props.children}
+        </AuthContext.Provider>
+    )
 
 }
