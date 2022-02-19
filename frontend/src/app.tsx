@@ -10,7 +10,7 @@ export function App() {
     return (
         
         <main>
-            { !user ? (registerStatus ?  <RegisterForm /> : <LoginForm />)  : <Profile />}
+            { !user ? (registerStatus ?  <RegisterForm /> : <LoginForm />)  : <Profile user={user} />}
         </main>
 
 

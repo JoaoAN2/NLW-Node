@@ -1,7 +1,6 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { Button, Form, FormControl } from "react-bootstrap";
 import { AuthContext } from "../../contexts/auth";
-import { api } from "../../services/api";
 import styles from "./styles.module.scss";
 
 export function LoginForm() {
@@ -14,10 +13,6 @@ export function LoginForm() {
         event.preventDefault();
 
         signIn(email, password);
-    }
-
-    function handleRegisterStatus() {
-        setRegisterStatus(true);
     }
     
     return (
@@ -33,7 +28,7 @@ export function LoginForm() {
                     <Button type="submit" variant="danger" className="my-4">Fazer Login</Button>
                 </div>
 
-                <span>Ainda não possui uma conta? Faça o <a href="#" onClick={handleRegisterStatus}>Cadastro</a></span>
+                <span>Ainda não possui uma conta? Faça o <a href="#" onClick={() => setRegisterStatus(true)}>Cadastro</a></span>
             </Form>
         </main>
     )

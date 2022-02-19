@@ -30,10 +30,11 @@ export function RegisterForm() {
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                  duration: 5000,
+                  duration: 2000,
                   onScreen: true
                 }
-            });
+            })
+            setTimeout( () => setRegisterStatus(false), 2000);
         })
         .catch(error => Store.addNotification({
             title: "Cadastro não autorizado!",
@@ -50,15 +51,11 @@ export function RegisterForm() {
         }));
     }
 
-    function handleRegisterStatus() {
-        setRegisterStatus(false);
-    }
-
     return (
         <div className={styles.form}>
                 <Form onSubmit={handleRegisterUser}>
 
-                    <h1>Formulário de registro</h1>
+                    <h1>Formulário de cadastro</h1>
                     <FormControl required type="text" id="name" name="name" onChange={event => setName(event.target.value)} placeholder="Nome Completo"/>
                     <FormControl required type="email" id="email" name="email" onChange={event => setEmail(event.target.value)} placeholder="Seu melhor email"/>
                     <FormControl required type="password" id="password" name="password" onChange={event => setPassword(event.target.value)} placeholder="*********"/>
@@ -74,10 +71,10 @@ export function RegisterForm() {
                     </div>
 
                     <div className={styles.submitButton}>
-                        <Button type="submit" variant="primary" className="my-4">Enviar</Button>
+                        <Button type="submit" variant="primary" className="my-4">Cadastrar</Button>
                     </div>
 
-                    <span>Já possui uma conta? <a href="#" onClick={handleRegisterStatus}>Faça login</a></span>
+                    <span>Já possui uma conta? <a href="#" onClick={() => setRegisterStatus(false)}>Faça login</a></span>
 
                     <ReactNotifications/>
                 </Form>
