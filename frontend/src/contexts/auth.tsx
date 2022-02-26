@@ -1,17 +1,9 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { Store } from "react-notifications-component";
+import { User } from "../types"
 
 const TOKEN_STORAGE = "@jao:token";
-
-type User = {
-    id: string,
-    name: string,
-    email: string,
-    admin: boolean,
-    created_at: Date,
-    updated_at: Date
-}
 
 type AuthContextData = {
     user: User | null,

@@ -3,17 +3,22 @@ import { LoginForm } from "./components/LoginForm";
 import { Profile } from "./components/Profile";
 import { RegisterForm } from "./components/RegisterForm";
 import { AuthContext } from "./contexts/auth";
+import { NavBar } from "./components/NavBar";
+
 export function App() {
 
     const { user, registerStatus } = useContext(AuthContext);
     
     return (
         
-        <main>
-            { !user ? (registerStatus ?  <RegisterForm /> : <LoginForm />)  : <Profile user={user} />}
-        </main>
+        <>
+            { !user ? (registerStatus ?  <RegisterForm /> : <LoginForm />)  : 
+            <>
+                <NavBar admin={user.admin}/>
+                <Profile user = { user } />
+            </>
+            }
+        </>
 
-
-        // <RegisterForm />
     );
 }
