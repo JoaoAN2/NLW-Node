@@ -1,5 +1,6 @@
-import { createContext, FormEventHandler, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../services/api";
+import { Store } from "react-notifications-component";
 
 const TOKEN_STORAGE = "@jao:token";
 
@@ -26,6 +27,7 @@ type AuthProvider = {
     children: ReactNode
 }
 
+
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider(props: AuthProvider) {
@@ -48,7 +50,19 @@ export function AuthProvider(props: AuthProvider) {
                 .then(response => setUser(response.data));
             }
         })
-        .catch(error => console.log(error.response.data.error));
+        .catch(error => Store.addNotification({
+            title: "Erro!",
+            message: error.response.data.error,
+            type: "danger",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 2000,
+              onScreen: true
+            }
+        }));
 
     }
 

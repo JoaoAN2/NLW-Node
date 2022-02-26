@@ -1,5 +1,6 @@
 import { FormEvent, useContext, useState } from "react";
 import { Button, Form, FormControl } from "react-bootstrap";
+import { ReactNotifications } from "react-notifications-component";
 import { AuthContext } from "../../contexts/auth";
 import styles from "./styles.module.scss";
 
@@ -29,6 +30,7 @@ export function LoginForm() {
                 </div>
 
                 <span>Ainda não possui uma conta? Faça o <a href="#" onClick={() => setRegisterStatus(true)}>Cadastro</a></span>
+                <ReactNotifications />
             </Form>
         </main>
     )

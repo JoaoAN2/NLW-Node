@@ -20,7 +20,7 @@ class DateTools {
     }
     
     addZero(value: Number) {
-        return value < 10 ? "0" + value : value;
+        return String(value).padStart(2, "0");
     }
 
 }
