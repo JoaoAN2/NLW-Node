@@ -1,0 +1,37 @@
+.messages {
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    position: inherit;
+    overflow: auto;
+    border: 1px solid black;
+    height: 80vh;    
+
+    li {
+        margin-top: 3rem;
+    }
+
+    .userPicture {
+        position: absolute;
+    }
+
+    .userGroup {
+        position: relative;
+        padding-top: 1rem;
+    }
+
+    .userInformation {
+        padding-left: 3rem;
+        line-height: 1.1rem;
+
+        .id {
+            font-size: 0.7rem;
+        }
+    }
+
+    li:last-child {
+        margin-bottom: 3rem;
+    }
+
+}

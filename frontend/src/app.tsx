@@ -1,9 +1,12 @@
 import { useContext } from "react";
-import { LoginForm } from "./components/LoginForm";
-import { Profile } from "./components/Profile";
 import { RegisterForm } from "./components/RegisterForm";
-import { AuthContext } from "./contexts/auth";
+import { LoginForm } from "./components/LoginForm";
 import { NavBar } from "./components/NavBar";
+import { MessageList } from "./components/MessageList";
+import { MessageForm } from "./components/MessageForm";
+import { Profile } from "./components/Profile";
+import { AuthContext } from "./contexts/auth";
+import { Container, Row } from "react-bootstrap";
 
 export function App() {
 
@@ -12,11 +15,22 @@ export function App() {
     return (
         
         <>
-            { !user ? (registerStatus ?  <RegisterForm /> : <LoginForm />)  : 
-            <>
-                <NavBar admin={user.admin}/>
-                <Profile user = { user } />
-            </>
+            { !user ? 
+            
+                (registerStatus ?  <RegisterForm /> : <LoginForm />)  
+                
+                : 
+                
+                <>
+                    <NavBar admin={ user.admin }/>
+
+                    <Container>
+                        <Row>
+                            <MessageList />
+                            <MessageForm />
+                        </Row>
+                    </Container>
+                </>
             }
         </>
 
