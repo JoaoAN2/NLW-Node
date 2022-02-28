@@ -1,27 +1,36 @@
 .userProfile {
     
     .userPicture {
-        width: 50%;
+        width: 40%;
         display: block;
-        margin: 3rem auto;
+        margin: 2rem auto;
     }
 
     div {
-        
         margin-bottom: 2rem;
-
     }
 }
 
-
 .form {
 
-    .select {
-        margin-bottom: 2rem;
+    .selectTag {
+        width: 50%;
+        text-align: center;
+        margin: 0 auto 1.75rem;
+    }
+
+    .selectUser {
+        text-align: center;
+        margin-bottom: 1rem;
     }
 
     textarea {
+        display: block;
         height: 12vh;
+    }
+
+    button {
+        height: 6vh;
     }
 
 }

@@ -6,3 +6,11 @@ export type User = {
     created_at: Date,
     updated_at: Date
 }
+
+export type Tags = {
+    id: string,
+    name: string,
+    created_at: Date,
+    updated_at: Date,
+    name_custom: string
+}

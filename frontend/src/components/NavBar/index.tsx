@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { AuthContext } from "../../contexts/auth";
 import { VscSignOut } from "react-icons/vsc";
+import { ModalTags } from "../ModalTags";
 
 type NavBarProps = {
     admin?: Boolean
@@ -11,6 +12,8 @@ export function NavBar({ admin = false }: NavBarProps) {
 
     const { user, signOut } = useContext(AuthContext);
     const firstName = user?.name.slice(0, user?.name.indexOf(" "));
+
+    const [ showModalTags, setShowModalTags ] = useState<boolean>(false);
 
     return (
         <Navbar bg="light" expand="lg" fixed="top" className="border-bottom">
@@ -29,7 +32,8 @@ export function NavBar({ admin = false }: NavBarProps) {
                         
                         <>
                             <NavDropdown title="Admin" id="basic-nav-dropdown" className="flex-wrap d-flex align-content-center">
-                                <NavDropdown.Item href="#action/3.1">Tags</NavDropdown.Item>
+                                <NavDropdown.Item href="#" onClick={() => setShowModalTags(true)}>Tags</NavDropdown.Item>
+                                <ModalTags show={showModalTags} onHide={() => setShowModalTags(false)}/>
                                 <NavDropdown.Item href="#action/3.2">Configurações</NavDropdown.Item>
                             </NavDropdown>
                         </> : 
