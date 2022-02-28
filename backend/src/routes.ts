@@ -30,7 +30,7 @@ router.post("/compliments", ensureAuthenticated, createComplimentController.hand
 router.get("/users/compliments/send", ensureAuthenticated, listUserSendComplimentsController.handle);
 router.get("/users/compliments/receive", ensureAuthenticated, listUserReceiveComplimentsController.handle);
 router.get("/tags", ensureAuthenticated, listTagsController.handle);
-router.get("/profile", ensureAuthenticated, profileUserController.handle)
-router.get("/users", listUsers.handle);
+router.get("/profile", ensureAuthenticated, profileUserController.handle);
+router.get("/users", ensureAuthenticated, listUsers.handle);
 
 export { router };
