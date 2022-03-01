@@ -1,16 +1,14 @@
 import { Request, Response } from "express";
 import { ProfileUserService } from "../services/ProfileUserService";
 
-class ProfileUserController {
-    
+class GetUserController {
     async handle(request: Request, response: Response) {
-        const { user_id } = request;
+        const user_id = String(request.query.user_id);
         const profileUserService = new ProfileUserService();
         const user = await profileUserService.execute(user_id);
-        console.log(user);
         return response.json(user);
+        
     }
-
 }
 
-export { ProfileUserController };
+export { GetUserController }

@@ -10,6 +10,8 @@ import { ListUserReceiveComplimentsController } from "./controllers/ListUserRece
 import { ListTagsController } from "./controllers/ListTagsController";
 import { ListUsersController } from "./controllers/ListUsersController";
 import { ProfileUserController } from "./controllers/ProfileUserController";
+import { GetUserController } from "./controllers/GetUserController";
+import { GetTagController } from "./controllers/GetTagController";
 
 const router = Router();
 
@@ -22,6 +24,8 @@ const listUserReceiveComplimentsController = new ListUserReceiveComplimentsContr
 const listTagsController = new ListTagsController();
 const profileUserController = new ProfileUserController();
 const listUsers = new ListUsersController();
+const getUserController = new GetUserController();
+const getTagController = new GetTagController();
 
 router.post("/tags", ensureAuthenticated, ensureAdmin, createTagController.handle);
 router.post("/users", createUserController.handle);
@@ -32,5 +36,7 @@ router.get("/users/compliments/receive", ensureAuthenticated, listUserReceiveCom
 router.get("/tags", ensureAuthenticated, listTagsController.handle);
 router.get("/profile", ensureAuthenticated, profileUserController.handle);
 router.get("/users", ensureAuthenticated, listUsers.handle);
+router.get("/user", ensureAuthenticated, getUserController.handle);
+router.get("/tag", ensureAuthenticated, getTagController.handle);
 
 export { router };
