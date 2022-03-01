@@ -1,15 +1,19 @@
 import { Button, Col, Form, FormGroup } from "react-bootstrap";
 import styles from "./styles.module.scss";
 import userWithoutPhoto from "../../assets/userWithoutPhoto.png"
-import { useContext, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth";
 import { api } from "../../services/api";
 import { User, Tag } from "../../types";
 
 export function MessageForm() {
+    const { user } = useContext(AuthContext);
 
     const [users, setUsers] = useState<User[]>([]);
     const [tags, setTags] = useState<Tag[]>([]);
+    const [tag, setTag] = useState<string>("");
+    const [userReceiver, setUserReceiver] = useState<string>("");
+    const [message, setMessage] = useState<string>("");
 
     useEffect(() => {
 
@@ -20,7 +24,7 @@ export function MessageForm() {
         }
         
         fetchUsers();
-    }, [])
+    }, []);
 
     useEffect(() => {
 
@@ -31,9 +35,16 @@ export function MessageForm() {
         }
 
         fetchTags();
-    }, [])
+    }, []);
 
-    const { user } = useContext(AuthContext);
+    async function handleSendMessage(event: FormEvent) {
+        event.preventDefault();
+        
+        await api
+        .post("/compliments", {tag_id: tag, user_receiver: userReceiver, message})
+        .then(response => alert("Mensagem enviada com sucesso para: " + users?.find(user => user.id === response.data.user_receiver)?.name))
+        .catch(error => alert(error.response.data.error));
+    }
 
     return (
         
@@ -47,8 +58,8 @@ export function MessageForm() {
                 </div>
             </div>
 
-            <Form className={styles.form}>
-                <Form.Select className={styles.selectTag}>
+            <Form className={styles.form} onSubmit={handleSendMessage}>
+                <Form.Select className={styles.selectTag} onChange={event => setTag(event.target.value)}>
                     <option value="#">#Tag</option>
                     {
                         tags.map(tag => {
@@ -58,7 +69,7 @@ export function MessageForm() {
                         })
                     }
                 </Form.Select>
-                <Form.Select className={styles.selectUser}>
+                <Form.Select className={styles.selectUser} onChange={event => setUserReceiver(event.target.value)}>
                     <option value="#">Selecione um usuário</option>
                     {
                         users.map(user => {
@@ -69,7 +80,7 @@ export function MessageForm() {
                     }
                 </Form.Select>
                 <FormGroup>
-                    <textarea className="form-control"/>
+                    <textarea className="form-control" onChange={event => setMessage(event.target.value)}/>
                 </FormGroup>
                 <Button variant="danger" type="submit" className="mt-4 w-100">Enviar mensagem</Button>
             </Form> 
