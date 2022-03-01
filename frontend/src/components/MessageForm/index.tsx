@@ -4,34 +4,34 @@ import userWithoutPhoto from "../../assets/userWithoutPhoto.png"
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth";
 import { api } from "../../services/api";
-import { User, Tags } from "../../types";
+import { User, Tag } from "../../types";
 
 export function MessageForm() {
 
     const [users, setUsers] = useState<User[]>([]);
-    const [tags, setTags] = useState<Tags[]>([]);
+    const [tags, setTags] = useState<Tag[]>([]);
 
     useEffect(() => {
 
-        async function getUsers() {
+        async function fetchUsers() {
             await api
             .get<User[]>("/users")
             .then(response => setUsers(response.data));
         }
         
-        getUsers();
+        fetchUsers();
     }, [])
 
     useEffect(() => {
 
-        async function getTags() {
+        async function fetchTags() {
             await api
-            .get<Tags[]>("/tags")
+            .get<Tag[]>("/tags")
             .then(response => setTags(response.data))
         }
 
-        getTags();
-    }, [tags])
+        fetchTags();
+    }, [])
 
     const { user } = useContext(AuthContext);
 
