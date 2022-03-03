@@ -26,6 +26,11 @@ class User {
     @UpdateDateColumn()
     updated_at: Date;
 
+    @Column({
+        nullable: true
+    })
+    image_profile?: string;
+
     constructor() {
         if (!this.id) {
             this.id = uuid();

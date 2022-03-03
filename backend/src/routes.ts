@@ -12,6 +12,8 @@ import { ListUsersController } from "./controllers/ListUsersController";
 import { ProfileUserController } from "./controllers/ProfileUserController";
 import { GetUserController } from "./controllers/GetUserController";
 import { GetTagController } from "./controllers/GetTagController";
+import multer from "multer";
+import { multerConfig } from "./config/multer";
 
 const router = Router();
 
@@ -28,7 +30,7 @@ const getUserController = new GetUserController();
 const getTagController = new GetTagController();
 
 router.post("/tags", ensureAuthenticated, ensureAdmin, createTagController.handle);
-router.post("/users", createUserController.handle);
+router.post("/users", multer(multerConfig).single("profilePhoto"), createUserController.handle);
 router.post("/login", authenticateUserController.handle);
 router.post("/compliments", ensureAuthenticated, createComplimentController.handle)
 router.get("/users/compliments/send", ensureAuthenticated, listUserSendComplimentsController.handle);
