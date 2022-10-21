@@ -62,7 +62,7 @@ export function RegisterForm() {
                 <FormControl required type="text" id="name" name="name" onChange={event => setName(event.target.value)} placeholder="Nome Completo"/>
                 <FormControl required type="email" id="email" name="email" onChange={event => setEmail(event.target.value)} placeholder="Seu melhor email"/>
                 <FormControl required type="password" id="password" name="password" onChange={event => setPassword(event.target.value)} placeholder="*********"/>
-                {/* <FormControl required type="file" id="profilePhoto" name="profilePhoto" onChange={event => setProfilePhoto(event.target.file)} placeholder="Foto de perfil"/> */}
+                <FormControl required type="file" id="profilePhoto" name="profilePhoto" onChange={event => setProfilePhoto(event.target.file)} placeholder="Foto de perfil"/>
 
                 <div>
                     <h3>É admin?</h3>

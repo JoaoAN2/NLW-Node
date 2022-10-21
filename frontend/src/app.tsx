@@ -17,7 +17,7 @@ export function App() {
         <>
             { !user ? 
             
-                (registerStatus ?  <RegisterForm /> : <LoginForm />)  
+                (registerStatus ?  <RegisterForm /> : <LoginForm />)
                 
                 : 
                 
@@ -33,6 +33,6 @@ export function App() {
                 </>
             }
         </>
-
+    
     );
 }

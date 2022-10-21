@@ -65,7 +65,7 @@ export function MessageList() {
 
         setAllDataMessages(auxListDataMessage);
 
-    }, [messages])
+    }, [messages]);
 
     return (
         <Col md="6">
